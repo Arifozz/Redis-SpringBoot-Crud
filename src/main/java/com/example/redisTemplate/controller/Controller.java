@@ -1,5 +1,5 @@
 package com.example.redisTemplate.controller;
-import com.example.redisTemplate.User;
+import com.example.redisTemplate.user.User;
 import com.example.redisTemplate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +10,11 @@ import java.util.List;
 public class Controller {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping
     public User enroll(@RequestBody User user){
-        return userService.enroll(user);
+        return userService.save(user);
     }
 
     @GetMapping
@@ -29,16 +29,7 @@ public class Controller {
         }else {
             return userService.findById(id);
         }
-
     }
-
-/*
-    @GetMapping("surname")
-    Iterable<User> findBySurname(@RequestParam("surname") String surname) {
-        return userService.findBySurname(surname);
-    }
-*/
-
     @DeleteMapping("/{id}")
     public String remove(@PathVariable int id){
         if (userService.findById(id)==null){
